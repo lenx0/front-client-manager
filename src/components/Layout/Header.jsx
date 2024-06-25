@@ -29,7 +29,7 @@ const Header = () => {
                                     <InputBase
                                         placeholder="Search..."
                                         inputProps={{ 'aria-label': 'search' }}
-                                        style={{ width: '100%' }}
+                                        style={{ width: '100%', color: 'white', padding: '5px', border: '1px solid #d8d8d88d', borderRadius: '2px' }}
                                     />
                                 </Box>
                             </Box>

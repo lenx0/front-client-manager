@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 import { Drawer, List, ListItem, ListItemIcon, ListItemText, IconButton } from '@mui/material';
 import { Dashboard as DashboardIcon, AccountCircle as AccountCircleIcon, Menu as MenuIcon } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
     const [open, setOpen] = useState(false);
 
     const toggleDrawer = () => {
         setOpen(!open);
-    };
-
-    const handleListItemClick = () => {
-        setOpen(true);
     };
 
     return (
@@ -25,24 +22,25 @@ const Sidebar = () => {
                     transition: 'width 0.3s ease-in-out',
                     bgcolor: 'primary.main',
                     color: 'white',
-                    overflowX: 'hidden'
+                    overflowX: 'hidden',
+                    border: 'none'
                 },
             }}
         >
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '64px' }}>
-                <IconButton onClick={toggleDrawer} sx={{ color: 'white' }}>
+            <div style={{ display: 'flex', justifyContent: 'start', alignItems: 'center', height: '64px' }}>
+                <IconButton onClick={toggleDrawer} sx={{ color: 'white', ml: 1.1 }}>
                     <MenuIcon />
                 </IconButton>
             </div>
-            <List>
-                <ListItem button onClick={handleListItemClick}>
-                    <ListItemIcon>
+            <List >
+                <ListItem button component={Link} to="/">
+                    <ListItemIcon sx={{ color: 'white' }}>
                         <DashboardIcon />
                     </ListItemIcon>
                     {open && <ListItemText primary="Dashboard" />}
                 </ListItem>
-                <ListItem button onClick={handleListItemClick}>
-                    <ListItemIcon>
+                <ListItem button component={Link} to="/register">
+                    <ListItemIcon sx={{ color: 'white' }}>
                         <AccountCircleIcon />
                     </ListItemIcon>
                     {open && <ListItemText primary="Profile" />}
