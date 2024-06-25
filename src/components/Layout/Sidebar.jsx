@@ -25,6 +25,7 @@ const Sidebar = () => {
                     transition: 'width 0.3s ease-in-out',
                     bgcolor: 'primary.main',
                     color: 'white',
+                    overflowX: 'hidden'
                 },
             }}
         >
