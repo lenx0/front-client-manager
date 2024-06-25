@@ -18,7 +18,7 @@ const UserForm = () => {
   };
 
   return (
-    <Grid container direction="column">
+    <Grid container direction="column" border="1px solid #e3e1ecb7" borderRadius={1} padding={5}>
       <Typography fontWeight={700} pb={3} color="#492cb3">
         General Details
       </Typography>

@@ -15,15 +15,19 @@ function App() {
         <Grid item xs={12}>
           <Header />
         </Grid>
-        <Grid item xs={2}>
+        {/* <Grid item xs={2}> */}
+        <Grid item>
           <Sidebar />
         </Grid>
-        <Grid item xs={10}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/register" element={<UserForm />} />
-            {/* <Route path="/users" element={<UserList />} /> */}
-          </Routes>
+        {/* <Grid item xs={10}> */}
+        <Grid item>
+          <Box margin="120px 50px 50px 50px">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/register" element={<UserForm />} />
+              {/* <Route path="/users" element={<UserList />} /> */}
+            </Routes>
+          </Box>
         </Grid>
       </Grid>
     </BrowserRouter>
