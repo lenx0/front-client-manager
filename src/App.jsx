@@ -24,7 +24,7 @@ function App() {
           <Grid margin="120px 50px 50px 50px">
             <Routes>
               <Route path="/" element={<Home />} />
-              {/* <Route path="/register" element={<UserForm />} /> */}
+              <Route path="/register" element={<UserForm />} />
               <Route path="/users" element={<UserList />} />
             </Routes>
           </Grid>

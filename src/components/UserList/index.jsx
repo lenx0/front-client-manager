@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Button, Container, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -58,6 +59,9 @@ const UserList = () => {
             }
           }}
         />
+      </Box>
+      <Box paddingTop={2}>
+      <Button variant="contained" component={Link} to="/register">Novo</Button>
       </Box>
     </Container>
   );

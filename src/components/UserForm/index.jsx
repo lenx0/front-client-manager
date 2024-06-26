@@ -1,8 +1,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import CustomInput from './CustomInput';
-import { Button, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const UserForm = () => {
   const { handleSubmit, control, reset } = useForm();
@@ -75,9 +76,12 @@ const UserForm = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <Button type="submit" variant="contained" color="primary">
-              Submit
-            </Button>
+            <Box display="flex" justifyContent="space-between">
+              <Button type="submit" variant="contained" color="primary">
+                Submit
+              </Button>
+              <Button variant="contained" component={Link} to="/users">Voltar</Button>
+            </Box>
           </Grid>
         </Grid>
       </form>
