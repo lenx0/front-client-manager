@@ -1,9 +1,9 @@
-// components/Charts.js
 import React from 'react';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 const Charts = ({ birthdaysByMonth }) => {
   const monthColors = [
@@ -61,7 +61,27 @@ const Charts = ({ birthdaysByMonth }) => {
 
   return (
     <div>
-      <Pie data={data} options={{ plugins: { legend: { display: false } } }} />
+      <Pie
+        data={data}
+        options={{
+          plugins: {
+            legend: { display: false },
+            datalabels: {
+              color: '#fff',
+              formatter: (value, context) => {
+                if (value === 0) return '';
+                const total = context.chart._metasets[0].total;
+                const percentage = ((value / total) * 100).toFixed(1) + '%';
+                return percentage;
+              },
+              font: {
+                weight: 'bold',
+                size: 14,
+              },
+            },
+          },
+        }}
+      />
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px', marginTop: '20px' }}>
         {legendItems.map((item, index) => (
           <div key={index} style={{ display: 'flex', alignItems: 'center' }}>

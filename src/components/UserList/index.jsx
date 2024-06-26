@@ -29,7 +29,7 @@ const UserList = () => {
     { field: 'birthDate', headerName: 'Birth Date', width: 150 },
     { field: 'email', headerName: 'Email', width: 200 },
     { field: 'phone', headerName: 'Phone', width: 150 },
-    { field: 'moment', headerName: 'Created At', width: 180 },
+    { field: 'moment', headerName: 'Created At', width: 280 },
   ];
 
   const rows = users.map((user, index) => ({
@@ -39,7 +39,7 @@ const UserList = () => {
 
   return (
     <Container>
-      <Typography fontWeight={700} pb={3} color="#492cb3">Users List</Typography>
+      <Typography variant="h4" pb={5} color="#292828">Clientes</Typography>
       <Box style={{ height: 400, width: '100%' }}>
         <DataGrid
           rows={rows}

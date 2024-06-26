@@ -39,7 +39,7 @@ const Sidebar = () => {
                     </ListItemIcon>
                     {open && <ListItemText primary="Dashboard" />}
                 </ListItem>
-                <ListItem button component={Link} to="/register">
+                <ListItem button component={Link} to="/users">
                     <ListItemIcon sx={{ color: 'white' }}>
                         <AccountCircleIcon />
                     </ListItemIcon>

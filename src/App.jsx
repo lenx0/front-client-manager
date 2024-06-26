@@ -21,13 +21,13 @@ function App() {
         </Grid>
         {/* <Grid item xs={10}> */}
         <Grid item>
-          <Box margin="120px 50px 50px 50px">
+          <Grid margin="120px 50px 50px 50px">
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/register" element={<UserForm />} />
-              {/* <Route path="/users" element={<UserList />} /> */}
+              {/* <Route path="/register" element={<UserForm />} /> */}
+              <Route path="/users" element={<UserList />} />
             </Routes>
-          </Box>
+          </Grid>
         </Grid>
       </Grid>
     </BrowserRouter>
