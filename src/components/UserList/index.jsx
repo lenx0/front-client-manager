@@ -26,6 +26,7 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import { Link, useNavigate } from "react-router-dom";
+import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -56,7 +57,6 @@ const UserList = () => {
   }, []);
 
   const handleEdit = (user) => {
-    console.log("user", user)
     navigate("/register", { state: { user } });
   };
 
@@ -166,26 +166,13 @@ const UserList = () => {
         Novo
       </Button>
 
-      <Dialog
+      <ConfirmationDialog
         open={openConfirmDialog}
-        onClose={handleDeleteCancel}
-        aria-labelledby="confirm-delete-dialog"
-      >
-        <DialogTitle id="confirm-delete-dialog" variant="h4">Excluir usuário</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Tem certeza que deseja excluir o usuário <strong>{userToDelete?.firstName}{" "}{userToDelete?.lastName}</strong>?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleDeleteCancel} variant="contained" color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleDeleteConfirm} variant="contained" color="error">
-            Confirm
-          </Button>
-        </DialogActions>
-      </Dialog>
+        title="Excluir usuário"
+        message={`Tem certeza que deseja excluir o usuário ${userToDelete?.firstName} ${userToDelete?.lastName}?`}
+        onConfirm={handleDeleteConfirm}
+        onCancel={handleDeleteCancel}
+      />
 
       <Dialog
         open={openSuccessDialog}

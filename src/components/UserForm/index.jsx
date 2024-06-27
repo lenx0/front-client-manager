@@ -1,14 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import CustomInput from './CustomInput';
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography, Dialog, DialogContent, DialogContentText, DialogActions } from '@mui/material';
 import axios from 'axios';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
 
 const UserForm = () => {
   const { handleSubmit, control, reset, setValue } = useForm();
   const location = useLocation();
+  const navigate = useNavigate();
   const user = location.state?.user;
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+  const [openSuccessDialog, setOpenSuccessDialog] = useState(false);
+  const [formAction, setFormAction] = useState('');
 
   useEffect(() => {
     if (user) {
@@ -22,12 +27,29 @@ const UserForm = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post('http://localhost:3100/v1/users/create', data);
-      console.log('Dados enviados com sucesso:', response.data);
+      if (user && user._id) {
+        await axios.put(`http://localhost:3100/v1/users/update/${user._id}`, data);
+        setFormAction('updated');
+        setOpenConfirmDialog(true);
+      } else {
+        await axios.post('http://localhost:3100/v1/users/create', data);
+        setFormAction('created');
+        setOpenSuccessDialog(true);
+      }
       reset();
     } catch (error) {
       console.error('Erro ao enviar dados:', error);
     }
+  };
+
+  const handleConfirmClose = () => {
+    setOpenConfirmDialog(false);
+    navigate('/users');
+  };
+
+  const handleSuccessClose = () => {
+    setOpenSuccessDialog(false);
+    navigate('/users');
   };
 
   return (
@@ -97,6 +119,31 @@ const UserForm = () => {
           </Grid>
         </Grid>
       </form>
+
+      <ConfirmationDialog
+        open={openConfirmDialog}
+        title="Usuário atualizado"
+        message="Usuário atualizado com sucesso!"
+        onConfirm={handleConfirmClose}
+        onCancel={handleConfirmClose}
+      />
+
+      <Dialog
+        open={openSuccessDialog}
+        onClose={handleSuccessClose}
+        aria-labelledby="success-dialog-title"
+      >
+        <DialogContent>
+          <DialogContentText>
+            Usuário criado com sucesso!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleSuccessClose} variant="contained" color="primary">
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Grid>
   );
 };
