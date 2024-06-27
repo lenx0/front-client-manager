@@ -14,6 +14,11 @@ import {
   Card,
   CardContent,
   Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Typography,
 } from "@mui/material";
 import axios from "axios";
@@ -25,6 +30,10 @@ import { Link } from "react-router-dom";
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+  const [openSuccessDialog, setOpenSuccessDialog] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
+  const [lastDeletedUser, setLastDeletedUser] = useState(null);
   const apiRef = useGridApiRef();
 
   useEffect(() => {
@@ -49,13 +58,31 @@ const UserList = () => {
     console.log("Edit user:", user);
   };
 
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`http://localhost:3100/v1/users/delete/${id}`);
-      setUsers(users.filter((user) => user._id !== id));
-    } catch (error) {
-      console.error("Error deleting user:", error);
+  const handleDeleteClick = (user) => {
+    setUserToDelete(user);
+    setOpenConfirmDialog(true);
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (userToDelete) {
+      try {
+        await axios.delete(`http://localhost:3100/v1/users/delete/${userToDelete._id}`);
+        setUsers(users.filter((user) => user._id !== userToDelete._id));
+        setLastDeletedUser(userToDelete);
+        setOpenConfirmDialog(false);
+        setOpenSuccessDialog(true);
+      } catch (error) {
+        console.error("Error deleting user:", error);
+      }
     }
+  };
+
+  const handleDeleteCancel = () => {
+    setOpenConfirmDialog(false);
+  };
+
+  const handleSuccessDialogClose = () => {
+    setOpenSuccessDialog(false);
   };
 
   const handleAddUser = () => {
@@ -77,7 +104,7 @@ const UserList = () => {
         <GridActionsCellItem
           icon={<DeleteOutlinedIcon />}
           label="Delete"
-          onClick={() => handleDelete(params.row._id)}
+          onClick={() => handleDeleteClick(params.row)}
         />,
       ],
     },
@@ -123,18 +150,61 @@ const UserList = () => {
       </Box>
       <Card variant="outlined" style={{ marginTop: "20px" }}>
         <CardContent>
-          <Alert severity="info">Please select a user to see details</Alert>
+          {lastDeletedUser ? (
+            <Alert severity="info">Usuário {lastDeletedUser.firstName} {lastDeletedUser.lastName} deletado com sucesso!</Alert>
+          ) : (
+            null
+            // <Alert severity="info">{users.length} usuários cadastrados</Alert>
+          )}
         </CardContent>
       </Card>
       <Button
         variant="contained"
         component={Link}
         to="/register"
-        sx={{
-          marginTop: 1
-        }}>
+        sx={{ marginTop: 1 }}
+      >
         Novo
       </Button>
+
+      <Dialog
+        open={openConfirmDialog}
+        onClose={handleDeleteCancel}
+        aria-labelledby="confirm-delete-dialog"
+      >
+        <DialogTitle id="confirm-delete-dialog" variant="h3">Excluir usuário</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Tem certeza que deseja excluir o usuário <strong>{userToDelete?.firstName}{" "}{userToDelete?.lastName}</strong> ?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDeleteCancel} variant="contained" color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleDeleteConfirm} variant="contained" color="error">
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog
+        open={openSuccessDialog}
+        onClose={handleSuccessDialogClose}
+        aria-labelledby="success-dialog"
+      >
+        <DialogTitle id="success-dialog">Concluído</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Usuário deletado com sucesso!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleSuccessDialogClose} color="primary">
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 };
