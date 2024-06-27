@@ -151,7 +151,7 @@ const UserList = () => {
       <Card variant="outlined" style={{ marginTop: "20px" }}>
         <CardContent>
           {lastDeletedUser ? (
-            <Alert severity="info">Usuário {lastDeletedUser.firstName} {lastDeletedUser.lastName} deletado com sucesso!</Alert>
+            <Alert severity="info">Último usuário deletado: {lastDeletedUser.firstName} {lastDeletedUser.lastName}</Alert>
           ) : (
             null
             // <Alert severity="info">{users.length} usuários cadastrados</Alert>
@@ -172,7 +172,7 @@ const UserList = () => {
         onClose={handleDeleteCancel}
         aria-labelledby="confirm-delete-dialog"
       >
-        <DialogTitle id="confirm-delete-dialog" variant="h3">Excluir usuário</DialogTitle>
+        <DialogTitle id="confirm-delete-dialog" variant="h4">Excluir usuário</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Tem certeza que deseja excluir o usuário <strong>{userToDelete?.firstName}{" "}{userToDelete?.lastName}</strong> ?
@@ -193,14 +193,14 @@ const UserList = () => {
         onClose={handleSuccessDialogClose}
         aria-labelledby="success-dialog"
       >
-        <DialogTitle id="success-dialog">Concluído</DialogTitle>
+        <DialogTitle id="success-dialog" variant="h4">Concluído</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Usuário deletado com sucesso!
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleSuccessDialogClose} color="primary">
+          <Button onClick={handleSuccessDialogClose} variant="contained" color="primary">
             OK
           </Button>
         </DialogActions>
