@@ -20,34 +20,7 @@ import axios from "axios";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import AddIcon from "@mui/icons-material/Add";
-
-const columns = [
-  {
-    field: "actions",
-    headerName: "Actions",
-    type: "actions",
-    width: 100,
-    getActions: (params) => [
-      <GridActionsCellItem
-        icon={<EditOutlinedIcon />}
-        label="Edit"
-        onClick={() => handleEdit(params.row)}
-      />,
-      <GridActionsCellItem
-        icon={<DeleteOutlinedIcon />}
-        label="Delete"
-        onClick={() => handleDelete(params.row.id)}
-      />,
-    ],
-  },
-  { field: "id", headerName: "ID", width: 70 },
-  { field: "firstName", headerName: "First Name", width: 190 },
-  { field: "lastName", headerName: "Last Name", width: 190 },
-  { field: "birthDate", headerName: "Birth Date", width: 150 },
-  { field: "email", headerName: "Email", width: 250 },
-  { field: "phone", headerName: "Phone", width: 150 },
-  { field: "moment", headerName: "Created At", width: 200 },
-];
+import { Link } from "react-router-dom";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -72,22 +45,50 @@ const UserList = () => {
     fetchUsers();
   }, []);
 
+  const handleEdit = (user) => {
+    console.log("Edit user:", user);
+  };
+
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3100/v1/users/${id}`);
-      setUsers(users.filter((user) => user.id !== id));
+      await axios.delete(`http://localhost:3100/v1/users/delete/${id}`);
+      setUsers(users.filter((user) => user._id !== id));
     } catch (error) {
       console.error("Error deleting user:", error);
     }
   };
 
-  const handleEdit = (user) => {
-    console.log("Edit user:", user);
-  };
-
   const handleAddUser = () => {
     console.log("Add new user");
   };
+
+  const columns = [
+    {
+      field: "actions",
+      headerName: "Actions",
+      type: "actions",
+      width: 100,
+      getActions: (params) => [
+        <GridActionsCellItem
+          icon={<EditOutlinedIcon />}
+          label="Edit"
+          onClick={() => handleEdit(params.row)}
+        />,
+        <GridActionsCellItem
+          icon={<DeleteOutlinedIcon />}
+          label="Delete"
+          onClick={() => handleDelete(params.row._id)}
+        />,
+      ],
+    },
+    { field: "id", headerName: "ID", width: 70 },
+    { field: "firstName", headerName: "First Name", width: 190 },
+    { field: "lastName", headerName: "Last Name", width: 190 },
+    { field: "birthDate", headerName: "Birth Date", width: 150 },
+    { field: "email", headerName: "Email", width: 250 },
+    { field: "phone", headerName: "Phone", width: 150 },
+    { field: "moment", headerName: "Created At", width: 200 },
+  ];
 
   return (
     <Container maxWidth="xl">
@@ -125,6 +126,15 @@ const UserList = () => {
           <Alert severity="info">Please select a user to see details</Alert>
         </CardContent>
       </Card>
+      <Button
+        variant="contained"
+        component={Link}
+        to="/register"
+        sx={{
+          marginTop: 1
+        }}>
+        Novo
+      </Button>
     </Container>
   );
 };
