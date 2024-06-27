@@ -39,7 +39,7 @@ const Home = () => {
   return (
     <Container>
       <Box p={3}>
-        <Typography variant="h4" mb={3}>Home Page</Typography>
+        <Typography variant="h1" mb={3}>Home Page</Typography>
         <Charts
           totalUsers={totalUsers}
           juneBirthdays={juneBirthdays}

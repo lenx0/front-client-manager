@@ -21,7 +21,7 @@ const UserForm = () => {
   return (
     <Grid container direction="column" border="1px solid #e3e1ecb7" borderRadius={1} padding={5}>
       <Typography fontWeight={700} pb={3} color="#492cb3">
-        General Details
+        Informações pessoais
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={2}>
@@ -29,26 +29,26 @@ const UserForm = () => {
             <CustomInput
               name="firstName"
               control={control}
-              label="First Name"
-              rules={{ required: 'First name is required' }}
+              label="Nome"
+              rules={{ required: 'Campo obrigatório' }}
             />
           </Grid>
           <Grid item xs={6}>
             <CustomInput
               name="lastName"
               control={control}
-              label="Last Name"
-              rules={{ required: 'Last name is required' }}
+              label="Sobrenome"
+              rules={{ required: 'Campo obrigatório' }}
             />
           </Grid>
           <Grid item xs={2}>
             <CustomInput
               name="birthDate"
               control={control}
-              label="Birth Date"
+              label="Data de nascimento"
               placeHolder="none"
               type="date"
-              rules={{ required: 'Birth date is required' }}
+              rules={{ required: 'Campo obrigatório' }}
               defaultValue=""
             />
           </Grid>
@@ -59,10 +59,10 @@ const UserForm = () => {
               label="Email"
               type="email"
               rules={{
-                required: 'Email is required',
+                required: 'Campo obrigatório',
                 pattern: {
                   value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-                  message: 'Enter a valid email address',
+                  message: 'Digite um e-mail válido',
                 },
               }}
             />
@@ -71,8 +71,8 @@ const UserForm = () => {
             <CustomInput
               name="phone"
               control={control}
-              label="Phone"
-              rules={{ required: 'Phone number is required' }}
+              label="Celular"
+              rules={{ required: 'Campo obrigatório' }}
             />
           </Grid>
           <Grid item xs={12}>

@@ -2,45 +2,63 @@ import React from 'react';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import themeColors from '../Styles/theme';
+import './styles.css'
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
+const monthColors = [
+  themeColors.palette.primary.light,
+  themeColors.palette.secondary.light,
+  themeColors.palette.error.light,
+  themeColors.palette.warning.light,
+  themeColors.palette.success.light,
+  themeColors.palette.info.light,
+  themeColors.palette.primary.main,
+  themeColors.palette.secondary.main,
+  themeColors.palette.error.main,
+  themeColors.palette.warning.main,
+  themeColors.palette.success.main,
+  themeColors.palette.info.main,
+];
+
+const monthBorderColors = [
+  themeColors.palette.primary.dark,
+  themeColors.palette.secondary.dark,
+  themeColors.palette.error.dark,
+  themeColors.palette.warning.dark,
+  themeColors.palette.success.dark,
+  themeColors.palette.info.dark,
+  themeColors.palette.primary.dark,
+  themeColors.palette.secondary.dark,
+  themeColors.palette.error.dark,
+  themeColors.palette.warning.dark,
+  themeColors.palette.success.dark,
+  themeColors.palette.info.dark,
+];
+
+const months = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'
+];
+
+const getLegendItems = (data) => data.labels.map((label, index) => ({
+  text: label,
+  color: data.datasets[0].backgroundColor[index],
+}));
+
+const ChartLegend = ({ legendItems }) => (
+  <div className="chart-legend">
+    {legendItems.map((item, index) => (
+      <div key={index} className="legend-item">
+        <div className="color-box" style={{ backgroundColor: item.color }}></div>
+        <span>{item.text}</span>
+      </div>
+    ))}
+  </div>
+);
+
 const Charts = ({ birthdaysByMonth }) => {
-  const monthColors = [
-    'rgba(255, 99, 132, 0.8)',  // January
-    'rgba(54, 162, 235, 0.8)',  // February
-    'rgba(255, 206, 86, 0.8)',  // March
-    'rgba(75, 192, 192, 0.8)',  // April
-    'rgba(153, 102, 255, 0.8)', // May
-    'rgba(255, 159, 64, 0.8)',  // June
-    'rgba(255, 99, 132, 0.8)',  // July
-    'rgba(54, 162, 235, 0.8)',  // August
-    'rgba(255, 206, 86, 0.8)',  // September
-    'rgba(75, 192, 192, 0.8)',  // October
-    'rgba(153, 102, 255, 0.8)', // November
-    'rgba(255, 159, 64, 0.8)',  // December
-  ];
-
-  const monthBorderColors = [
-    'rgba(255, 99, 132, 1)',  // January
-    'rgba(54, 162, 235, 1)',  // February
-    'rgba(255, 206, 86, 1)',  // March
-    'rgba(75, 192, 192, 1)',  // April
-    'rgba(153, 102, 255, 1)', // May
-    'rgba(255, 159, 64, 1)',  // June
-    'rgba(255, 99, 132, 1)',  // July
-    'rgba(54, 162, 235, 1)',  // August
-    'rgba(255, 206, 86, 1)',  // September
-    'rgba(75, 192, 192, 1)',  // October
-    'rgba(153, 102, 255, 1)', // November
-    'rgba(255, 159, 64, 1)',  // December
-  ];
-
-  const months = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ];
-
   const data = {
     labels: months,
     datasets: [
@@ -54,13 +72,10 @@ const Charts = ({ birthdaysByMonth }) => {
     ],
   };
 
-  const legendItems = data.labels.map((label, index) => ({
-    text: label,
-    color: data.datasets[0].backgroundColor[index],
-  }));
+  const legendItems = getLegendItems(data);
 
   return (
-    <div>
+    <div className="chart-container">
       <Pie
         data={data}
         options={{
@@ -80,16 +95,12 @@ const Charts = ({ birthdaysByMonth }) => {
               },
             },
           },
+          responsive: true,
+          maintainAspectRatio: true,
         }}
+        aria-label="Pie chart showing the distribution of birthdays by month"
       />
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px', marginTop: '20px' }}>
-        {legendItems.map((item, index) => (
-          <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
-            <div style={{ width: '20px', height: '20px', backgroundColor: item.color, marginRight: '10px' }}></div>
-            <span>{item.text}</span>
-          </div>
-        ))}
-      </div>
+      <ChartLegend legendItems={legendItems} />
     </div>
   );
 };

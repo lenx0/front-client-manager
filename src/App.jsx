@@ -1,4 +1,4 @@
-import { Box, Grid } from '@mui/material'
+import { Grid } from '@mui/material'
 import './App.css'
 import UserForm from './components/UserForm'
 import UserList from './components/UserList'
@@ -6,31 +6,36 @@ import Header from './components/Layout/Header'
 import Sidebar from './components/Layout/Sidebar'
 import Home from './components/Pages/Home'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { ThemeProvider, CssBaseline } from '@mui/material'
+import lightTheme from './styles/theme/lightTheme'
 
 function App() {
-
+  console.log(lightTheme)
   return (
-    <BrowserRouter>
-      <Grid container>
-        <Grid item xs={12}>
-          <Header />
-        </Grid>
-        {/* <Grid item xs={2}> */}
-        <Grid item>
-          <Sidebar />
-        </Grid>
-        {/* <Grid item xs={10}> */}
-        <Grid item>
-          <Grid margin="120px 50px 50px 50px">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/register" element={<UserForm />} />
-              <Route path="/users" element={<UserList />} />
-            </Routes>
+    <ThemeProvider theme={lightTheme}>
+      <CssBaseline />
+      <BrowserRouter >
+        <Grid container>
+          <Grid item xs={12}>
+            <Header />
+          </Grid>
+          {/* <Grid item xs={2}> */}
+          <Grid item>
+            <Sidebar />
+          </Grid>
+          {/* <Grid item xs={10}> */}
+          <Grid item>
+            <Grid margin="120px 50px 50px 50px">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/register" element={<UserForm />} />
+                <Route path="/users" element={<UserList />} />
+              </Routes>
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
-    </BrowserRouter>
+      </BrowserRouter>
+    </ThemeProvider>
   )
 }
 

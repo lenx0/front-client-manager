@@ -60,8 +60,8 @@ const UserList = () => {
           }}
         />
       </Box>
-      <Box paddingTop={2}>
-      <Button variant="contained" component={Link} to="/register">Novo</Button>
+      <Box paddingTop={1}>
+        <Button variant="contained" component={Link} to="/register">novo</Button>
       </Box>
     </Container>
   );
