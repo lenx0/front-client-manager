@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import CustomInput from './CustomInput';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const UserForm = () => {
-  const { handleSubmit, control, reset } = useForm();
+  const { handleSubmit, control, reset, setValue } = useForm();
+  const location = useLocation();
+  const user = location.state?.user;
+
+  useEffect(() => {
+    if (user) {
+      setValue("firstName", user.firstName);
+      setValue("lastName", user.lastName);
+      setValue("birthDate", user.birthDate);
+      setValue("email", user.email);
+      setValue("phone", user.phone);
+    }
+  }, [user, setValue]);
 
   const onSubmit = async (data) => {
     try {
@@ -78,7 +90,7 @@ const UserForm = () => {
           <Grid item xs={12}>
             <Box display="flex" justifyContent="space-between">
               <Button type="submit" variant="contained" color="primary">
-                Submit
+                Enviar
               </Button>
               <Button variant="contained" component={Link} to="/users">Voltar</Button>
             </Box>

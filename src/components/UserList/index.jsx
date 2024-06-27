@@ -25,7 +25,7 @@ import axios from "axios";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import AddIcon from "@mui/icons-material/Add";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -35,6 +35,7 @@ const UserList = () => {
   const [userToDelete, setUserToDelete] = useState(null);
   const [lastDeletedUser, setLastDeletedUser] = useState(null);
   const apiRef = useGridApiRef();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -55,7 +56,8 @@ const UserList = () => {
   }, []);
 
   const handleEdit = (user) => {
-    console.log("Edit user:", user);
+    console.log("user", user)
+    navigate("/register", { state: { user } });
   };
 
   const handleDeleteClick = (user) => {
@@ -86,7 +88,7 @@ const UserList = () => {
   };
 
   const handleAddUser = () => {
-    console.log("Add new user");
+    navigate("/register");
   };
 
   const columns = [
@@ -152,10 +154,7 @@ const UserList = () => {
         <CardContent>
           {lastDeletedUser ? (
             <Alert severity="info">Último usuário deletado: {lastDeletedUser.firstName} {lastDeletedUser.lastName}</Alert>
-          ) : (
-            null
-            // <Alert severity="info">{users.length} usuários cadastrados</Alert>
-          )}
+          ) : null}
         </CardContent>
       </Card>
       <Button
@@ -175,7 +174,7 @@ const UserList = () => {
         <DialogTitle id="confirm-delete-dialog" variant="h4">Excluir usuário</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Tem certeza que deseja excluir o usuário <strong>{userToDelete?.firstName}{" "}{userToDelete?.lastName}</strong> ?
+            Tem certeza que deseja excluir o usuário <strong>{userToDelete?.firstName}{" "}{userToDelete?.lastName}</strong>?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
