@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import CustomInput from './CustomInput';
-import { Box, Button, Grid, Typography, Dialog, DialogContent, DialogContentText, DialogActions } from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import axios from 'axios';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
+import AlertDialog from '../Dialogs/AlertDialog';
 
 const UserForm = () => {
   const { handleSubmit, control, reset, setValue } = useForm();
@@ -34,7 +34,7 @@ const UserForm = () => {
       } else {
         await axios.post('http://localhost:3100/v1/users/create', data);
         setFormAction('created');
-        setOpenSuccessDialog(true);
+        setOpenConfirmDialog(true);
       }
       reset();
     } catch (error) {
@@ -119,31 +119,12 @@ const UserForm = () => {
           </Grid>
         </Grid>
       </form>
-
-      <ConfirmationDialog
+      <AlertDialog
         open={openConfirmDialog}
-        title="Usuário atualizado"
-        message="Usuário atualizado com sucesso!"
-        onConfirm={handleConfirmClose}
-        onCancel={handleConfirmClose}
-      />
-
-      <Dialog
-        open={openSuccessDialog}
+        title={formAction === 'updated' ? 'Atualização' : 'Cadastro'}
+        message={`Usuário ${formAction === 'updated' ? 'atualizado' : 'criado'} com sucesso!`}
         onClose={handleSuccessClose}
-        aria-labelledby="success-dialog-title"
-      >
-        <DialogContent>
-          <DialogContentText>
-            Usuário criado com sucesso!
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleSuccessClose} variant="contained" color="primary">
-            OK
-          </Button>
-        </DialogActions>
-      </Dialog>
+      />
     </Grid>
   );
 };

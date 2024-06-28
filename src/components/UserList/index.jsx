@@ -14,11 +14,6 @@ import {
   Card,
   CardContent,
   Container,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
   Typography,
 } from "@mui/material";
 import axios from "axios";
@@ -27,6 +22,7 @@ import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import { Link, useNavigate } from "react-router-dom";
 import ConfirmationDialog from '../Dialogs/ConfirmationDialog';
+import AlertDialog from "../Dialogs/AlertDialog";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -168,29 +164,17 @@ const UserList = () => {
 
       <ConfirmationDialog
         open={openConfirmDialog}
-        title="Excluir usuário"
-        message={`Tem certeza que deseja excluir o usuário ${userToDelete?.firstName} ${userToDelete?.lastName}?`}
+        title="DELETAR"
+        message={`Tem certeza que deseja deletar o usuário ${userToDelete?.firstName} ${userToDelete?.lastName}?`}
         onConfirm={handleDeleteConfirm}
         onCancel={handleDeleteCancel}
       />
-
-      <Dialog
+      <AlertDialog
         open={openSuccessDialog}
+        title="Deletado"
+        message="Usuário deletado com sucesso!"
         onClose={handleSuccessDialogClose}
-        aria-labelledby="success-dialog"
-      >
-        <DialogTitle id="success-dialog" variant="h4">Concluído</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Usuário deletado com sucesso!
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleSuccessDialogClose} variant="contained" color="primary">
-            OK
-          </Button>
-        </DialogActions>
-      </Dialog>
+      />
     </Container>
   );
 };
