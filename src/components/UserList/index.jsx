@@ -94,16 +94,22 @@ const UserList = () => {
       type: "actions",
       width: 100,
       getActions: (params) => [
-        <GridActionsCellItem
-          icon={<EditOutlinedIcon />}
-          label="Edit"
-          onClick={() => handleEdit(params.row)}
-        />,
-        <GridActionsCellItem
-          icon={<DeleteOutlinedIcon />}
-          label="Delete"
-          onClick={() => handleDeleteClick(params.row)}
-        />,
+        <>
+          <Box width="30px" height="30px" borderRadius="50%" backgroundColor="#05631d9e">
+            <GridActionsCellItem
+              icon={<EditOutlinedIcon sx={{ color: "#ffffff" }} />}
+              label="Edit"
+              onClick={() => handleEdit(params.row)}
+            />
+          </Box>
+          <Box width="30px" height="30px" borderRadius="50%" backgroundColor="#630505a0">
+            <GridActionsCellItem
+              icon={<DeleteOutlinedIcon sx={{ color: "#ffffff" }} />}
+              label="Delete"
+              onClick={() => handleDeleteClick(params.row)}
+            />
+          </Box>
+        </>
       ],
     },
     { field: "id", headerName: "ID", width: 70 },
