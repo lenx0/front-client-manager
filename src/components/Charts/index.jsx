@@ -1,11 +1,11 @@
-import React from 'react';
-import { Pie } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
-import themeColors from '../Styles/theme';
+import React from 'react'
+import { Pie } from 'react-chartjs-2'
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
+import ChartDataLabels from 'chartjs-plugin-datalabels'
+import themeColors from '../styles/theme'
 import './styles.css'
 
-ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
+ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels)
 
 const monthColors = [
   themeColors.palette.primary.light,
@@ -20,7 +20,7 @@ const monthColors = [
   themeColors.palette.warning.main,
   themeColors.palette.success.main,
   themeColors.palette.info.main,
-];
+]
 
 const monthBorderColors = [
   themeColors.palette.primary.dark,
@@ -35,17 +35,17 @@ const monthBorderColors = [
   themeColors.palette.warning.dark,
   themeColors.palette.success.dark,
   themeColors.palette.info.dark,
-];
+]
 
 const months = [
   'January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December'
-];
+]
 
 const getLegendItems = (data) => data.labels.map((label, index) => ({
   text: label,
   color: data.datasets[0].backgroundColor[index],
-}));
+}))
 
 const ChartLegend = ({ legendItems }) => (
   <div className="chart-legend">
@@ -56,7 +56,7 @@ const ChartLegend = ({ legendItems }) => (
       </div>
     ))}
   </div>
-);
+)
 
 const Charts = ({ birthdaysByMonth }) => {
   const data = {
@@ -70,9 +70,9 @@ const Charts = ({ birthdaysByMonth }) => {
         borderWidth: 1,
       },
     ],
-  };
+  }
 
-  const legendItems = getLegendItems(data);
+  const legendItems = getLegendItems(data)
 
   return (
     <div className="chart-container">
@@ -84,10 +84,10 @@ const Charts = ({ birthdaysByMonth }) => {
             datalabels: {
               color: '#fff',
               formatter: (value, context) => {
-                if (value === 0) return '';
-                const total = context.chart._metasets[0].total;
-                const percentage = ((value / total) * 100).toFixed(1) + '%';
-                return percentage;
+                if (value === 0) return ''
+                const total = context.chart._metasets[0].total
+                const percentage = ((value / total) * 100).toFixed(1) + '%'
+                return percentage
               },
               font: {
                 weight: 'bold',
@@ -102,7 +102,7 @@ const Charts = ({ birthdaysByMonth }) => {
       />
       <ChartLegend legendItems={legendItems} />
     </div>
-  );
-};
+  )
+}
 
-export default Charts;
+export default Charts

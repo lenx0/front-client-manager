@@ -1,6 +1,6 @@
-import React from 'react';
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Button, Typography } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import React from 'react'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Button, Typography } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
 
 const ConfirmationDialog = ({ open, title, message, onConfirm, onCancel, hideActions }) => {
   return (
@@ -35,7 +35,7 @@ const ConfirmationDialog = ({ open, title, message, onConfirm, onCancel, hideAct
         </DialogActions>
       )}
     </Dialog>
-  );
-};
+  )
+}
 
-export default ConfirmationDialog;
+export default ConfirmationDialog

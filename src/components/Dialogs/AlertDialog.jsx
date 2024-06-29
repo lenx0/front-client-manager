@@ -1,6 +1,6 @@
-import React from 'react';
-import { Dialog, DialogActions, DialogContent, DialogContentText, Button, Box, Typography, IconButton, DialogTitle } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import React from 'react'
+import { Dialog, DialogActions, DialogContent, DialogContentText, Button, Box, Typography, IconButton, DialogTitle } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
 const AlertDialog = ({ open, title, message, onClose }) => {
     return (
         <Dialog open={open} maxWidth="xs" fullWidth onClose={onClose} disableEscapeKeyDown={true} aria-labelledby="alert-dialog-title">
@@ -30,7 +30,7 @@ const AlertDialog = ({ open, title, message, onClose }) => {
                 </Button>
             </DialogActions>
         </Dialog>
-    );
-};
+    )
+}
 
-export default AlertDialog;
+export default AlertDialog

@@ -1,46 +1,64 @@
-import React from 'react';
-import { AppBar, Toolbar, InputBase, IconButton, Badge, Avatar, Grid, Box, useMediaQuery } from '@mui/material';
-import { Menu as MenuIcon, Search as SearchIcon, Notifications as NotificationsIcon, AccountCircle as AccountCircleIcon } from '@mui/icons-material';
-import { useTheme } from '@emotion/react';
+import React, { useState } from 'react'
+import { AppBar, Toolbar, IconButton, Badge, Avatar, Box, Menu, MenuItem, ListItemText, ListItemIcon } from '@mui/material'
+import { Notifications as NotificationsIcon, AccountCircle as AccountCircleIcon } from '@mui/icons-material'
+import { useSelector, useDispatch } from 'react-redux'
+import { clearNotifications } from '../../features/notifications/notificationsSlice'
 
 const Header = () => {
-    const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.up('xs'));
-    return (
-        <AppBar position="fixed" sx={{ bgcolor: 'primary.main' }}>
-            <Toolbar>
-                <IconButton
-                    size="large"
-                    edge="start"
-                    color="inherit"
-                    aria-label="open drawer"
-                >
-                    <MenuIcon />
-                </IconButton>
-                <Box display="flex" gap={3} width="100%" justifyContent="end" alignContent="center" alignItems="center">
-                    <Box backgroundColor="#bdbdbd" borderRadius="50%">
-                        <IconButton color="inherit" >
-                            <Badge
-                                badgeContent={100}
-                                color="error"
-                                sx={{
-                                    '& .MuiBadge-badge': {
-                                        minWidth: '16px',
-                                        height: '16px',
-                                        fontSize: '10px',
-                                        transform: 'translate(20px, -15px)'
-                                    }
-                                }}
-                            >
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
-                    </Box>
-                    <Avatar alt="User Avatar" src="/avatar.jpg" />
-                </Box>
-            </Toolbar>
-        </AppBar>
-    );
-};
+  const [anchorEl, setAnchorEl] = useState(null)
+  const notifications = useSelector((state) => state.notifications.items)
+  const dispatch = useDispatch()
 
-export default Header;
+  const handleNotificationClick = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  const handleClearNotifications = () => {
+    dispatch(clearNotifications())
+    handleClose()
+  }
+
+  return (
+    <AppBar position="fixed" sx={{ bgcolor: 'primary.main' }}>
+      <Toolbar>
+        <Box display="flex" gap={3} width="100%" justifyContent="end" alignContent="center" alignItems="center">
+          <IconButton color="inherit" onClick={handleNotificationClick}>
+            <Badge
+              badgeContent={notifications.length}
+              color="error"
+            >
+              <NotificationsIcon />
+            </Badge>
+          </IconButton>
+          <Avatar alt="User Avatar" src="/avatar.jpg" />
+        </Box>
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          {notifications.map((notification, index) => (
+            <MenuItem key={index}>
+              <ListItemText
+                primary={`Usuário ${notification.type}: ${notification.user.firstName} ${notification.user.lastName}`}
+                secondary={new Date(notification.timestamp).toLocaleString()}
+              />
+            </MenuItem>
+          ))}
+          <MenuItem onClick={handleClearNotifications}>
+            <ListItemIcon>
+              <NotificationsIcon />
+            </ListItemIcon>
+            <ListItemText primary="Clear Notifications" />
+          </MenuItem>
+        </Menu>
+      </Toolbar>
+    </AppBar>
+  )
+}
+
+export default Header

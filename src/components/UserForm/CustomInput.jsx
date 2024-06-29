@@ -1,6 +1,6 @@
-import React from 'react';
-import { Controller } from 'react-hook-form';
-import TextField from '@mui/material/TextField';
+import React from 'react'
+import { Controller } from 'react-hook-form'
+import TextField from '@mui/material/TextField'
 
 const CustomInput = ({ name, control, label, type = 'text', rules, defaultValue = '' }) => {
   return (
@@ -22,7 +22,7 @@ const CustomInput = ({ name, control, label, type = 'text', rules, defaultValue 
         />
       )}
     />
-  );
-};
+  )
+}
 
-export default CustomInput;
+export default CustomInput

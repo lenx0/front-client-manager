@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { Drawer, List, ListItem, ListItemIcon, ListItemText, IconButton } from '@mui/material';
-import { Dashboard as DashboardIcon, AccountCircle as AccountCircleIcon, Menu as MenuIcon } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react'
+import { Drawer, List, ListItem, ListItemIcon, ListItemText, IconButton } from '@mui/material'
+import { Dashboard as DashboardIcon, AccountCircle as AccountCircleIcon, Menu as MenuIcon } from '@mui/icons-material'
+import { Link } from 'react-router-dom'
 
 const Sidebar = () => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
 
     const toggleDrawer = () => {
-        setOpen(!open);
-    };
+        setOpen(!open)
+    }
 
     return (
         <Drawer
@@ -47,7 +47,7 @@ const Sidebar = () => {
                 </ListItem>
             </List>
         </Drawer>
-    );
-};
+    )
+}
 
-export default Sidebar;
+export default Sidebar
