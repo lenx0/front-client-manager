@@ -5,11 +5,14 @@ import { Box, Button, Grid, Typography } from '@mui/material'
 import axios from 'axios'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import AlertDialog from '../dialogs/AlertDialog'
+import { useDispatch } from 'react-redux'
+import { addNotification } from '../../features/notifications/notificationsSlice'
 
 const UserForm = () => {
   const { handleSubmit, control, reset, setValue } = useForm()
   const location = useLocation()
   const navigate = useNavigate()
+  const dispatch = useDispatch();
   const user = location.state?.user
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false)
   const [openSuccessDialog, setOpenSuccessDialog] = useState(false)
@@ -30,10 +33,12 @@ const UserForm = () => {
       if (user && user._id) {
         await axios.put(`http://localhost:3100/v1/users/update/${user._id}`, data)
         setFormAction('updated')
+        dispatch(addNotification({ type: 'atualizado', user: data, timestamp: new Date().toISOString() }));
         setOpenConfirmDialog(true)
       } else {
-        await axios.post('http://localhost:3100/v1/users/create', data)
+        const response = await axios.post('http://localhost:3100/v1/users/create', data)
         setFormAction('created')
+        dispatch(addNotification({ type: 'criado', user: response.data, timestamp: new Date().toISOString() }))
         setOpenConfirmDialog(true)
       }
       reset()
