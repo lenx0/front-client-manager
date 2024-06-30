@@ -14,6 +14,7 @@ import {
   Card,
   CardContent,
   Container,
+  TextField,
   Typography,
 } from "@mui/material"
 import axios from "axios"
@@ -34,6 +35,7 @@ const UserList = () => {
   const [openSuccessDialog, setOpenSuccessDialog] = useState(false)
   const [userToDelete, setUserToDelete] = useState(null)
   const [lastDeletedUser, setLastDeletedUser] = useState(null)
+  const [searchQuery, setSearchQuery] = useState("")
   const dispatch = useDispatch()
   const apiRef = useGridApiRef()
   const navigate = useNavigate()
@@ -102,6 +104,14 @@ const UserList = () => {
     navigate("/register")
   }
 
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value)
+  }
+
+  const filteredUsers = users.filter((user) => 
+    `${user.firstName} ${user.lastName}`.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+
   const columns = [
     {
       field: "actions",
@@ -141,10 +151,18 @@ const UserList = () => {
       <Typography variant="h1" pb={5} color="#292828">
         Clientes
       </Typography>
+      <TextField
+        fullWidth
+        variant="outlined"
+        placeholder="Pesquisar usuários pelo nome"
+        value={searchQuery}
+        onChange={handleSearchChange}
+        sx={{ mb: 3 }}
+      />
       <Box sx={{ flexGrow: 1 }}>
         <DataGrid
           apiRef={apiRef}
-          rows={users}
+          rows={filteredUsers}
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[5, 10, 25]}
