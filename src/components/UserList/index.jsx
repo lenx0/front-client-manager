@@ -144,6 +144,11 @@ const UserList = () => {
           pageSize={5}
           rowsPerPageOptions={[5, 10, 25]}
           loading={loading}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 1, pageSize: 10 }
+            }
+          }}
           components={{
             Toolbar: () => (
               <GridToolbarContainer>
