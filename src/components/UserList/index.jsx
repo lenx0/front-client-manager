@@ -21,10 +21,11 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined"
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined"
 import AddIcon from "@mui/icons-material/Add"
 import { Link, useNavigate } from "react-router-dom"
-import ConfirmationDialog from '../dialogs/ConfirmationDialog'
+import ConfirmationDialog from "../dialogs/ConfirmationDialog"
 import AlertDialog from "../dialogs/AlertDialog"
 import { useDispatch } from "react-redux"
-import { addNotification } from '../../features/notifications/notificationsSlice'
+import { addNotification } from "../../features/notifications/notificationsSlice"
+import { formatDate } from "../../utils/dateUtils"
 
 const UserList = () => {
   const [users, setUsers] = useState([])
@@ -41,11 +42,13 @@ const UserList = () => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get("http://localhost:3100/v1/users/list")
-        const usersWithIds = response.data.map((user, index) => ({
+        const usersWithFormattedDates = response.data.map((user, index) => ({
           id: index + 1,
           ...user,
+          birthDate: formatDate(user.birthDate),
+          moment: formatDate(user.moment),
         }))
-        setUsers(usersWithIds)
+        setUsers(usersWithFormattedDates)
         setLoading(false)
       } catch (error) {
         console.error("Error fetching users:", error)
@@ -71,11 +74,13 @@ const UserList = () => {
         setUsers(users.filter((user) => user._id !== userToDelete._id))
         setLastDeletedUser(userToDelete)
 
-        dispatch(addNotification({
-          type: 'deletado',
-          user: userToDelete,
-          timestamp: new Date().toISOString(),
-        }))
+        dispatch(
+          addNotification({
+            type: "deletado",
+            user: userToDelete,
+            timestamp: new Date().toISOString(),
+          })
+        )
 
         setOpenConfirmDialog(false)
         setOpenSuccessDialog(true)
@@ -119,7 +124,7 @@ const UserList = () => {
               onClick={() => handleDeleteClick(params.row)}
             />
           </Box>
-        </>
+        </>,
       ],
     },
     { field: "id", headerName: "ID", width: 70 },
@@ -146,8 +151,8 @@ const UserList = () => {
           loading={loading}
           initialState={{
             pagination: {
-              paginationModel: { page: 1, pageSize: 10 }
-            }
+              paginationModel: { page: 1, pageSize: 10 },
+            },
           }}
           components={{
             Toolbar: () => (
@@ -170,16 +175,13 @@ const UserList = () => {
       <Card variant="outlined" style={{ marginTop: "20px" }}>
         <CardContent>
           {lastDeletedUser ? (
-            <Alert severity="info">Último usuário deletado: {lastDeletedUser.firstName} {lastDeletedUser.lastName}</Alert>
+            <Alert severity="info">
+              Último usuário deletado: {lastDeletedUser.firstName} {lastDeletedUser.lastName}
+            </Alert>
           ) : null}
         </CardContent>
       </Card>
-      <Button
-        variant="contained"
-        component={Link}
-        to="/register"
-        sx={{ marginTop: 1 }}
-      >
+      <Button variant="contained" component={Link} to="/register" sx={{ marginTop: 1 }}>
         Novo
       </Button>
 
