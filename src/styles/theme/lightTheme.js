@@ -1,51 +1,50 @@
-import { createTheme } from '@mui/material/styles'
-import { grey, common, } from '@mui/material/colors'
+import { createTheme } from '@mui/material/styles';
+import { grey, common } from '@mui/material/colors';
 
-const themeColors = createTheme({
-  mode: 'light',
+const lightTheme = createTheme({
+  palette: {
+    mode: 'light',
     primary: {
       light: '#FFDED8',
       main: '#FF5B3B',
-      dark: '#9D2D18'
+      dark: '#9D2D18',
     },
     secondary: {
       light: '#CFF8EB',
       main: '#5ED6B0',
-      dark: '#265949'
+      dark: '#265949',
     },
     link: {
       light: '#E6F3FA',
       main: '#3D9CF7',
-      dark: '#0054A5'
+      dark: '#0054A5',
     },
     error: {
       light: '#FCE4E2',
       main: '#EB574C',
-      dark: '#A8313A'
+      dark: '#A8313A',
     },
     warning: {
       light: '#FDF5E1',
       main: '#F6C344',
-      dark: '#AF832C'
+      dark: '#AF832C',
     },
     success: {
       light: '#EAF8E2',
       main: '#17C964',
-      dark: '#00784C'
+      dark: '#00784C',
     },
     info: {
       light: '#E6E0EF',
       main: '#673AB7',
-      dark: '#220089'
+      dark: '#220089',
     },
     step: {
       light: '#FF5B3B',
       main: '#FF5B3B',
-      dark: '#FF5B3B'
-    }
-})
-
-const lightTheme = createTheme({
+      dark: '#FF5B3B',
+    },
+  },
   typography: {
     fontFamily: 'Roboto, Arial',
     h1: {
@@ -54,99 +53,98 @@ const lightTheme = createTheme({
     },
     h2: {
       fontSize: 24,
-      fontWeight: 700
+      fontWeight: 700,
     },
     h3: {
       fontSize: 20,
-      fontWeight: 600
+      fontWeight: 600,
     },
     h4: {
       fontSize: 18,
-      fontWeight: 600
+      fontWeight: 600,
     },
     h5: {
       fontSize: 16,
-      fontWeight: 600
+      fontWeight: 600,
     },
     h6: {
       fontSize: 14,
-      fontWeight: 600
+      fontWeight: 600,
     },
     subtitle1: {
       fontSize: 14,
-      fontWeight: 600
+      fontWeight: 600,
     },
     subtitle2: {
       fontSize: 12,
-      fontWeight: 400
+      fontWeight: 400,
     },
     body1: {
       fontSize: 16,
-      fontWeight: 400
+      fontWeight: 400,
     },
     body2: {
       fontSize: 14,
-      fontWeight: 400
+      fontWeight: 400,
     },
     button: {
       fontSize: 14,
-      fontWeight: 600
+      fontWeight: 600,
     },
     caption2: {
       fontSize: 8,
-      fontWeight: 400
+      fontWeight: 400,
     },
     overline: {
       fontSize: 12,
-      fontWeight: 600
-    }
+      fontWeight: 600,
+    },
   },
-    
   components: {
     MuiChip: {
       styleOverrides: {
         root: {
-          borderRadius: 2
+          borderRadius: 2,
         },
         rounded: {
-          borderRadius: 80
+          borderRadius: 80,
         },
         roundedOutlined: {
           borderRadius: 80,
           backgroundColor: 'transparent',
-          border: '1px solid'
+          border: '1px solid',
         },
         colorPrimary: {
-          backgroundColor: themeColors.primary.light,
-          color: themeColors.primary.dark
+          backgroundColor: '#FFDED8',
+          color: '#9D2D18',
         },
         colorSecondary: {
-          backgroundColor: themeColors.secondary.light,
-          color: themeColors.secondary.dark
+          backgroundColor: '#CFF8EB',
+          color: '#265949',
         },
         colorInfo: {
-          backgroundColor: themeColors.info.light,
-          color: themeColors.info.dark
+          backgroundColor: '#E6E0EF',
+          color: '#220089',
         },
         colorSuccess: {
-          backgroundColor: themeColors.success.light,
-          color: themeColors.success.dark
+          backgroundColor: '#EAF8E2',
+          color: '#00784C',
         },
         colorError: {
-          backgroundColor: themeColors.error.light,
-          color: themeColors.error.dark
+          backgroundColor: '#FCE4E2',
+          color: '#A8313A',
         },
         colorWarning: {
-          backgroundColor: themeColors.warning.light,
-          color: themeColors.warning.dark
-        }
-      }
+          backgroundColor: '#FDF5E1',
+          color: '#AF832C',
+        },
+      },
     },
     MuiButton: {
       styleOverrides: {
         outlinedInherit: {
           borderColor: grey[200],
-          color: 'black'
+          color: 'black',
         },
         roundedOutlined: {
           fontSize: '14px',
@@ -156,88 +154,87 @@ const lightTheme = createTheme({
           border: '1px solid',
           borderRadius: '80px',
           borderColor: '#C8C6C9',
-          background: common.white
+          background: common.white,
         },
         roundedOutlinedSuccess: {
-          color: themeColors.success.dark,
-          backgroundColor: themeColors.success.light
-        }
-      }
+          color: '#00784C',
+          backgroundColor: '#EAF8E2',
+        },
+      },
     },
-
     MuiTextField: {
       styleOverrides: {
         root: {
           input: {
             padding: '10px',
             '&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
-              WebkitAppearance: 'none'
-            }
-          }
-        }
-      }
+              WebkitAppearance: 'none',
+            },
+          },
+        },
+      },
     },
     MuiFormHelperText: {
       styleOverrides: {
         root: {
           fontSize: 12,
-          marginLeft: 0
-        }
-      }
+          marginLeft: 0,
+        },
+      },
     },
     MuiAutocomplete: {
       styleOverrides: {
         root: {
           '.MuiOutlinedInput-root': {
-            padding: '3px'
-          }
-        }
-      }
+            padding: '3px',
+          },
+        },
+      },
     },
     MuiSelect: {
       styleOverrides: {
         root: {
           '.MuiSelect-outlined': {
-            padding: '10px'
-          }
-        }
-      }
+            padding: '10px',
+          },
+        },
+      },
     },
     MuiCardContent: {
       styleOverrides: {
         root: {
           '&:last-child': {
-            paddingBottom: '16px'
-          }
-        }
-      }
+            paddingBottom: '16px',
+          },
+        },
+      },
     },
     MuiStepIcon: {
       styleOverrides: {
         root: {
           '&.Mui-completed': {
-            color: themeColors.secondary.main
-          }
-        }
-      }
+            color: '#5ED6B0',
+          },
+        },
+      },
     },
     MuiAccordion: {
       styleOverrides: {
         root: {
           '&:before': {
-            display: 'none'
-          }
-        }
-      }
+            display: 'none',
+          },
+        },
+      },
     },
     MuiAccordionSummary: {
       styleOverrides: {
         content: {
           '&.Mui-expanded': {
-            margin: '12px 0'
-          }
-        }
-      }
+            margin: '12px 0',
+          },
+        },
+      },
     },
     MuiBadge: {
       styleOverrides: {
@@ -245,11 +242,11 @@ const lightTheme = createTheme({
           fontWeight: '700',
           top: 5,
           right: 5,
-          padding: '0 2px'
-        }
-      }
-    }
-  }
-})
+          padding: '0 2px',
+        },
+      },
+    },
+  },
+});
 
-export default lightTheme
+export default lightTheme;
