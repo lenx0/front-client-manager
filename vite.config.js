@@ -17,6 +17,7 @@ export default defineConfig({
         'react-redux',
         'redux-persist',
         'redux-persist/integration/react',
+        'redux-persist/lib/storage',
         '@reduxjs/toolkit'
       ],
     },
