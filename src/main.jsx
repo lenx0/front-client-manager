@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 import { ThemeProvider } from '@emotion/react'
-import theme from './components/styles/theme.lightTheme.js'
+import theme from './components/styles/theme/lightTheme.js'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
