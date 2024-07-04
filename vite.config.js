@@ -16,7 +16,8 @@ export default defineConfig({
         'react-dom',
         'react-redux',
         'redux-persist',
-        'redux-persist/integration/react'
+        'redux-persist/integration/react',
+        '@reduxjs/toolkit'
       ],
     },
   },
