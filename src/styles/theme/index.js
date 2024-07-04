@@ -1,7 +1,16 @@
 import { createTheme } from '@mui/material/styles';
 import { grey, common } from '@mui/material/colors';
 
-const lightTheme = createTheme({
+const theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 640, 
+      md: 800, 
+      lg: 1200,   
+      xl: 1536,     
+    },
+  },
   palette: {
     mode: 'light',
     primary: {
@@ -249,4 +258,4 @@ const lightTheme = createTheme({
   },
 });
 
-export default lightTheme;
+export default theme;
