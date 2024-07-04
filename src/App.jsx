@@ -5,7 +5,7 @@ import UserForm from './components/UserForm';
 import UserList from './components/UserList';
 import Header from './components/layout/Header/Header.jsx';
 import Sidebar from './components/layout/Sidebar/Sidebar.jsx';
-import Home from './components/pages/Home.jsx';
+import Home from './components/pages/Home';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 // import lightTheme from './components/styles/theme/lightTheme';
 import { Provider } from 'react-redux';
