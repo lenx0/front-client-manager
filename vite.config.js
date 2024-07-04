@@ -11,7 +11,13 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: ['react', 'react-dom', 'react-redux'],
+      external: [
+        'react',
+        'react-dom',
+        'react-redux',
+        'redux-persist',
+        'redux-persist/integration/react'
+      ],
     },
   },
 });
