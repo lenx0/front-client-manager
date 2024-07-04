@@ -1,61 +1,59 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import CustomInput from './CustomInput'
-import { Box, Button, Grid, Typography } from '@mui/material'
-import axios from 'axios'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import AlertDialog from '../dialogs/AlertDialog'
 import { useDispatch } from 'react-redux'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+
+import { Box, Button, Grid, Typography } from '@mui/material'
+
+import { createUser, updateUser } from '../../api';
+
+import CustomInput from './CustomInput'
+import AlertDialog from '../dialogs/AlertDialog'
 import { addNotification } from '../../features/notifications'
 
 const UserForm = () => {
-  const { handleSubmit, control, reset, setValue } = useForm()
-  const location = useLocation()
-  const navigate = useNavigate()
+  const { handleSubmit, control, reset, setValue } = useForm();
+  const location = useLocation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = location.state?.user
-  const [openConfirmDialog, setOpenConfirmDialog] = useState(false)
-  const [openSuccessDialog, setOpenSuccessDialog] = useState(false)
-  const [formAction, setFormAction] = useState('')
+  const user = location.state?.user;
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+  const [openSuccessDialog, setOpenSuccessDialog] = useState(false);
+  const [formAction, setFormAction] = useState('');
 
   useEffect(() => {
     if (user) {
-      setValue("firstName", user.firstName)
-      setValue("lastName", user.lastName)
-      setValue("birthDate", user.birthDate)
-      setValue("email", user.email)
-      setValue("phone", user.phone)
+      setValue('firstName', user.firstName);
+      setValue('lastName', user.lastName);
+      setValue('birthDate', user.birthDate);
+      setValue('email', user.email);
+      setValue('phone', user.phone);
     }
-  }, [user, setValue])
+  }, [user, setValue]);
 
   const onSubmit = async (data) => {
     try {
       if (user && user._id) {
-        await axios.put(`https://usellers-backend-1.onrender.com/v1/users/update/${user._id}`, data)
-        setFormAction('updated')
+        await updateUser(user._id, data);
+        setFormAction('updated');
         dispatch(addNotification({ type: 'atualizado', user: data, timestamp: new Date().toISOString() }));
-        setOpenConfirmDialog(true)
+        setOpenConfirmDialog(true);
       } else {
-        const response = await axios.post('https://usellers-backend-1.onrender.com/v1/users/create', data)
-        setFormAction('created')
-        dispatch(addNotification({ type: 'criado', user: response.data, timestamp: new Date().toISOString() }))
-        setOpenConfirmDialog(true)
+        const response = await createUser(data);
+        setFormAction('created');
+        dispatch(addNotification({ type: 'criado', user: response, timestamp: new Date().toISOString() }));
+        setOpenConfirmDialog(true);
       }
-      reset()
+      reset();
     } catch (error) {
-      console.error('Erro ao enviar dados:', error)
+      console.error('Erro ao enviar dados:', error);
     }
-  }
-
-  const handleConfirmClose = () => {
-    setOpenConfirmDialog(false)
-    navigate('/users')
-  }
+  };
 
   const handleSuccessClose = () => {
-    setOpenSuccessDialog(false)
-    navigate('/users')
-  }
+    setOpenSuccessDialog(false);
+    navigate('/users');
+  };
 
   return (
     <Grid container direction="column" border="1px solid #e3e1ecb7" borderRadius={1} padding={5}>
@@ -119,7 +117,9 @@ const UserForm = () => {
               <Button type="submit" variant="contained" color="primary">
                 Enviar
               </Button>
-              <Button variant="contained" component={Link} to="/users">Voltar</Button>
+              <Button variant="contained" component={Link} to="/users">
+                Voltar
+              </Button>
             </Box>
           </Grid>
         </Grid>
@@ -131,7 +131,7 @@ const UserForm = () => {
         onClose={handleSuccessClose}
       />
     </Grid>
-  )
-}
+  );
+};
 
-export default UserForm
+export default UserForm;

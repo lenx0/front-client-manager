@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+
 import {
   DataGrid,
   GridToolbarContainer,
@@ -6,7 +9,7 @@ import {
   GridToolbarFilterButton,
   GridActionsCellItem,
   useGridApiRef,
-} from "@mui/x-data-grid"
+} from "@mui/x-data-grid";
 import {
   Alert,
   Box,
@@ -16,65 +19,58 @@ import {
   Container,
   TextField,
   Typography,
-} from "@mui/material"
-import axios from "axios"
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined"
-import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined"
-import AddIcon from "@mui/icons-material/Add"
-import { Link, useNavigate } from "react-router-dom"
-import ConfirmationDialog from "../dialogs/ConfirmationDialog"
-import AlertDialog from "../dialogs/AlertDialog"
-import { useDispatch } from "react-redux"
-import { addNotification } from "../../features/notifications"
-import { formatDate } from "../../utils/dateUtils"
+} from "@mui/material";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import AddIcon from "@mui/icons-material/Add";
+
+import { getUsers, deleteUser } from "../../api";
+
+import ConfirmationDialog from "../dialogs/ConfirmationDialog";
+import AlertDialog from "../dialogs/AlertDialog";
+import { addNotification } from "../../features/notifications";
 
 const UserList = () => {
-  const [users, setUsers] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [openConfirmDialog, setOpenConfirmDialog] = useState(false)
-  const [openSuccessDialog, setOpenSuccessDialog] = useState(false)
-  const [userToDelete, setUserToDelete] = useState(null)
-  const [lastDeletedUser, setLastDeletedUser] = useState(null)
-  const [searchQuery, setSearchQuery] = useState("")
-  const dispatch = useDispatch()
-  const apiRef = useGridApiRef()
-  const navigate = useNavigate()
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+  const [openSuccessDialog, setOpenSuccessDialog] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
+  const [lastDeletedUser, setLastDeletedUser] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const dispatch = useDispatch();
+  const apiRef = useGridApiRef();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("https://usellers-backend-1.onrender.com/v1/users/list")
-        const usersWithFormattedDates = response.data.map((user, index) => ({
-          id: index + 1,
-          ...user,
-          birthDate: formatDate(user.birthDate),
-          moment: formatDate(user.moment),
-        }))
-        setUsers(usersWithFormattedDates)
-        setLoading(false)
+        const users = await getUsers();
+        setUsers(users);
+        setLoading(false);
       } catch (error) {
-        console.error("Error fetching users:", error)
-        setLoading(false)
+        console.error("Error fetching users:", error);
+        setLoading(false);
       }
-    }
-    fetchUsers()
-  }, [])
+    };
+    fetchUsers();
+  }, []);
 
   const handleEdit = (user) => {
-    navigate("/register", { state: { user } })
-  }
+    navigate("/register", { state: { user } });
+  };
 
   const handleDeleteClick = (user) => {
-    setUserToDelete(user)
-    setOpenConfirmDialog(true)
-  }
+    setUserToDelete(user);
+    setOpenConfirmDialog(true);
+  };
 
   const handleDeleteConfirm = async () => {
     if (userToDelete) {
       try {
-        await axios.delete(`https://usellers-backend-1.onrender.com/v1/users/delete/${userToDelete._id}`)
-        setUsers(users.filter((user) => user._id !== userToDelete._id))
-        setLastDeletedUser(userToDelete)
+        await deleteUser(userToDelete._id);
+        setUsers(users.filter((user) => user._id !== userToDelete._id));
+        setLastDeletedUser(userToDelete);
 
         dispatch(
           addNotification({
@@ -82,35 +78,36 @@ const UserList = () => {
             user: userToDelete,
             timestamp: new Date().toISOString(),
           })
-        )
+        );
 
-        setOpenConfirmDialog(false)
-        setOpenSuccessDialog(true)
+        setOpenConfirmDialog(false);
+        setOpenSuccessDialog(true);
       } catch (error) {
-        console.error("Error deleting user:", error)
+        console.error("Error deleting user:", error);
       }
     }
-  }
+  };
 
   const handleDeleteCancel = () => {
-    setOpenConfirmDialog(false)
-  }
+    setOpenConfirmDialog(false);
+  };
 
   const handleSuccessDialogClose = () => {
-    setOpenSuccessDialog(false)
-  }
+    setOpenSuccessDialog(false);
+  };
 
   const handleAddUser = () => {
-    navigate("/register")
-  }
+    navigate("/register");
+  };
 
   const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value)
-  }
+    setSearchQuery(event.target.value);
+  };
 
-  const filteredUsers = users.filter((user) => 
-    `${user.firstName} ${user.lastName}`.toLowerCase().includes(searchQuery.toLowerCase())
-  )
+  const filteredUsers = users.filter(
+    (user) =>
+      `${user.firstName} ${user.lastName}`.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const columns = [
     {
@@ -144,7 +141,7 @@ const UserList = () => {
     { field: "email", headerName: "Email", width: 250 },
     { field: "phone", headerName: "Phone", width: 150 },
     { field: "moment", headerName: "Created At", width: 200 },
-  ]
+  ];
 
   return (
     <Container maxWidth="xl">
@@ -220,7 +217,7 @@ const UserList = () => {
         onClose={handleSuccessDialogClose}
       />
     </Container>
-  )
-}
+  );
+};
 
-export default UserList
+export default UserList;
