@@ -1,5 +1,5 @@
 import React from 'react'
-import { Pie } from 'react-chartjs-2'
+import { Doughnut } from 'react-chartjs-2'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import ChartDataLabels from 'chartjs-plugin-datalabels'
 import themeColors from '../../../styles/theme'
@@ -48,13 +48,16 @@ const getLegendItems = (data) => data.labels.map((label, index) => ({
 }))
 
 const ChartLegend = ({ legendItems }) => (
-  <div className="chart-legend">
-    {legendItems.map((item, index) => (
-      <div key={index} className="legend-item">
-        <div className="color-box" style={{ backgroundColor: item.color }}></div>
-        <span>{item.text}</span>
-      </div>
-    ))}
+  <div>
+    <h6 align="center">Gráfico de aniversário (mês)</h6>
+    <div className="chart-legend">
+      {legendItems.map((item, index) => (
+        <div key={index} className="legend-item">
+          <div className="color-box" style={{ backgroundColor: item.color }}></div>
+          <span>{item.text}</span>
+        </div>
+      ))}
+    </div>
   </div>
 )
 
@@ -76,7 +79,7 @@ const Charts = ({ birthdaysByMonth }) => {
 
   return (
     <div className="chart-container">
-      <Pie
+      <Doughnut
         data={data}
         options={{
           plugins: {
@@ -98,7 +101,7 @@ const Charts = ({ birthdaysByMonth }) => {
           responsive: true,
           maintainAspectRatio: true,
         }}
-        aria-label="Pie chart showing the distribution of birthdays by month"
+        aria-label="Doughnut chart showing the distribution of birthdays by month"
       />
       <ChartLegend legendItems={legendItems} />
     </div>
