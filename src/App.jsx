@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, CssBaseline } from '@mui/material';
+import { Grid, CssBaseline, ThemeProvider } from '@mui/material';
 import './App.css';
 import UserForm from './components/UserForm';
 import UserList from './components/UserList';
@@ -7,7 +7,7 @@ import Header from './components/layout/Header';
 import Sidebar from './components/layout/Sidebar';
 import Home from './components/pages/Home';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-// import lightTheme from './components/styles/theme/lightTheme';
+import lightTheme from './styles/theme';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './store';
@@ -16,7 +16,7 @@ function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        {/* <ThemeProvider theme={lightTheme}> */}
+        <ThemeProvider theme={lightTheme}>
         <CssBaseline />
         <BrowserRouter>
           <Grid container>
@@ -37,7 +37,7 @@ function App() {
             </Grid>
           </Grid>
         </BrowserRouter>
-        {/* </ThemeProvider> */}
+        </ThemeProvider>
       </PersistGate>
     </Provider>
   );
