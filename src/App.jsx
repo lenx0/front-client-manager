@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, ThemeProvider, CssBaseline } from '@mui/material';
+import { Grid, CssBaseline } from '@mui/material';
 import './App.css';
 import UserForm from './components/UserForm';
 import UserList from './components/UserList';

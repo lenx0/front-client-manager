@@ -8,17 +8,5 @@ export default defineConfig({
       '@': '/src',
     },
   },
-  build: {
-    rollupOptions: {
-      external: [
-        'react',
-        'react-dom',
-        'react-redux',
-        'redux-persist',
-        'redux-persist/integration/react',
-        'redux-persist/lib/storage',
-        '@reduxjs/toolkit'
-      ],
-    },
-  },
+  base: './',
 });
