@@ -31,12 +31,12 @@ const UserForm = () => {
   const onSubmit = async (data) => {
     try {
       if (user && user._id) {
-        await axios.put(`http://localhost:3100/v1/users/update/${user._id}`, data)
+        await axios.put(`https://usellers-backend-1.onrender.com/v1/users/update/${user._id}`, data)
         setFormAction('updated')
         dispatch(addNotification({ type: 'atualizado', user: data, timestamp: new Date().toISOString() }));
         setOpenConfirmDialog(true)
       } else {
-        const response = await axios.post('http://localhost:3100/v1/users/create', data)
+        const response = await axios.post('https://usellers-backend-1.onrender.com/v1/users/create', data)
         setFormAction('created')
         dispatch(addNotification({ type: 'criado', user: response.data, timestamp: new Date().toISOString() }))
         setOpenConfirmDialog(true)

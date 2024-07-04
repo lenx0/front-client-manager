@@ -72,7 +72,7 @@ const UserList = () => {
   const handleDeleteConfirm = async () => {
     if (userToDelete) {
       try {
-        await axios.delete(`http://localhost:3100/v1/users/delete/${userToDelete._id}`)
+        await axios.delete(`https://usellers-backend-1.onrender.com/v1/users/delete/${userToDelete._id}`)
         setUsers(users.filter((user) => user._id !== userToDelete._id))
         setLastDeletedUser(userToDelete)
 
