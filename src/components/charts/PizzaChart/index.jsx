@@ -2,7 +2,7 @@ import React from 'react'
 import { Pie } from 'react-chartjs-2'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import ChartDataLabels from 'chartjs-plugin-datalabels'
-import themeColors from '../styles/theme'
+import themeColors from '../../styles/theme'
 import './styles.css'
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels)

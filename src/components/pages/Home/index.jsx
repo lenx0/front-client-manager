@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Box, Typography, Container } from '@mui/material'
 import axios from 'axios'
-import Charts from '../../charts'
+import Charts from '../../charts/PizzaChart'
 
 const Home = () => {
   const [totalUsers, setTotalUsers] = useState(0)
