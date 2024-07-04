@@ -1,108 +1,108 @@
-import React from 'react'
-import { Pie } from 'react-chartjs-2'
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
-import ChartDataLabels from 'chartjs-plugin-datalabels'
-import themeColors from '../../styles/theme'
-import './styles.css'
+// import React from 'react'
+// import { Pie } from 'react-chartjs-2'
+// import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
+// import ChartDataLabels from 'chartjs-plugin-datalabels'
+// import themeColors from '../../styles/theme'
+// import './styles.css'
 
-ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels)
+// ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels)
 
-const monthColors = [
-  themeColors.palette.primary.light,
-  themeColors.palette.secondary.light,
-  themeColors.palette.error.light,
-  themeColors.palette.warning.light,
-  themeColors.palette.success.light,
-  themeColors.palette.info.light,
-  themeColors.palette.primary.main,
-  themeColors.palette.secondary.main,
-  themeColors.palette.error.main,
-  themeColors.palette.warning.main,
-  themeColors.palette.success.main,
-  themeColors.palette.info.main,
-]
+// const monthColors = [
+//   themeColors.palette.primary.light,
+//   themeColors.palette.secondary.light,
+//   themeColors.palette.error.light,
+//   themeColors.palette.warning.light,
+//   themeColors.palette.success.light,
+//   themeColors.palette.info.light,
+//   themeColors.palette.primary.main,
+//   themeColors.palette.secondary.main,
+//   themeColors.palette.error.main,
+//   themeColors.palette.warning.main,
+//   themeColors.palette.success.main,
+//   themeColors.palette.info.main,
+// ]
 
-const monthBorderColors = [
-  themeColors.palette.primary.dark,
-  themeColors.palette.secondary.dark,
-  themeColors.palette.error.dark,
-  themeColors.palette.warning.dark,
-  themeColors.palette.success.dark,
-  themeColors.palette.info.dark,
-  themeColors.palette.primary.dark,
-  themeColors.palette.secondary.dark,
-  themeColors.palette.error.dark,
-  themeColors.palette.warning.dark,
-  themeColors.palette.success.dark,
-  themeColors.palette.info.dark,
-]
+// const monthBorderColors = [
+//   themeColors.palette.primary.dark,
+//   themeColors.palette.secondary.dark,
+//   themeColors.palette.error.dark,
+//   themeColors.palette.warning.dark,
+//   themeColors.palette.success.dark,
+//   themeColors.palette.info.dark,
+//   themeColors.palette.primary.dark,
+//   themeColors.palette.secondary.dark,
+//   themeColors.palette.error.dark,
+//   themeColors.palette.warning.dark,
+//   themeColors.palette.success.dark,
+//   themeColors.palette.info.dark,
+// ]
 
-const months = [
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December'
-]
+// const months = [
+//   'January', 'February', 'March', 'April', 'May', 'June',
+//   'July', 'August', 'September', 'October', 'November', 'December'
+// ]
 
-const getLegendItems = (data) => data.labels.map((label, index) => ({
-  text: label,
-  color: data.datasets[0].backgroundColor[index],
-}))
+// const getLegendItems = (data) => data.labels.map((label, index) => ({
+//   text: label,
+//   color: data.datasets[0].backgroundColor[index],
+// }))
 
-const ChartLegend = ({ legendItems }) => (
-  <div className="chart-legend">
-    {legendItems.map((item, index) => (
-      <div key={index} className="legend-item">
-        <div className="color-box" style={{ backgroundColor: item.color }}></div>
-        <span>{item.text}</span>
-      </div>
-    ))}
-  </div>
-)
+// const ChartLegend = ({ legendItems }) => (
+//   <div className="chart-legend">
+//     {legendItems.map((item, index) => (
+//       <div key={index} className="legend-item">
+//         <div className="color-box" style={{ backgroundColor: item.color }}></div>
+//         <span>{item.text}</span>
+//       </div>
+//     ))}
+//   </div>
+// )
 
-const Charts = ({ birthdaysByMonth }) => {
-  const data = {
-    labels: months,
-    datasets: [
-      {
-        label: 'Users',
-        data: months.map((_, index) => birthdaysByMonth[index] || 0),
-        backgroundColor: monthColors,
-        borderColor: monthBorderColors,
-        borderWidth: 1,
-      },
-    ],
-  }
+// const Charts = ({ birthdaysByMonth }) => {
+//   const data = {
+//     labels: months,
+//     datasets: [
+//       {
+//         label: 'Users',
+//         data: months.map((_, index) => birthdaysByMonth[index] || 0),
+//         backgroundColor: monthColors,
+//         borderColor: monthBorderColors,
+//         borderWidth: 1,
+//       },
+//     ],
+//   }
 
-  const legendItems = getLegendItems(data)
+//   const legendItems = getLegendItems(data)
 
-  return (
-    <div className="chart-container">
-      <Pie
-        data={data}
-        options={{
-          plugins: {
-            legend: { display: false },
-            datalabels: {
-              color: '#fff',
-              formatter: (value, context) => {
-                if (value === 0) return ''
-                const total = context.chart._metasets[0].total
-                const percentage = ((value / total) * 100).toFixed(1) + '%'
-                return percentage
-              },
-              font: {
-                weight: 'bold',
-                size: 14,
-              },
-            },
-          },
-          responsive: true,
-          maintainAspectRatio: true,
-        }}
-        aria-label="Pie chart showing the distribution of birthdays by month"
-      />
-      <ChartLegend legendItems={legendItems} />
-    </div>
-  )
-}
+//   return (
+//     <div className="chart-container">
+//       <Pie
+//         data={data}
+//         options={{
+//           plugins: {
+//             legend: { display: false },
+//             datalabels: {
+//               color: '#fff',
+//               formatter: (value, context) => {
+//                 if (value === 0) return ''
+//                 const total = context.chart._metasets[0].total
+//                 const percentage = ((value / total) * 100).toFixed(1) + '%'
+//                 return percentage
+//               },
+//               font: {
+//                 weight: 'bold',
+//                 size: 14,
+//               },
+//             },
+//           },
+//           responsive: true,
+//           maintainAspectRatio: true,
+//         }}
+//         aria-label="Pie chart showing the distribution of birthdays by month"
+//       />
+//       <ChartLegend legendItems={legendItems} />
+//     </div>
+//   )
+// }
 
-export default Charts
+// export default Charts
