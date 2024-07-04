@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { AppBar, Toolbar, IconButton, Badge, Avatar, Box, Menu, MenuItem, ListItemText, ListItemIcon } from '@mui/material'
 import { Notifications as NotificationsIcon, AccountCircle as AccountCircleIcon } from '@mui/icons-material'
 import { useSelector, useDispatch } from 'react-redux'
-import { clearNotifications } from '../../../features/notifications/notificationsSlice'
+import { clearNotifications } from '../../../features/notifications'
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null)

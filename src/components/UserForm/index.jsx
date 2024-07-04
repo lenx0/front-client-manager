@@ -6,7 +6,7 @@ import axios from 'axios'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import AlertDialog from '../dialogs/AlertDialog'
 import { useDispatch } from 'react-redux'
-import { addNotification } from '../../features/notifications/notificationsSlice'
+import { addNotification } from '../../features/notifications'
 
 const UserForm = () => {
   const { handleSubmit, control, reset, setValue } = useForm()

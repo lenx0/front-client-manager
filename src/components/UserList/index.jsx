@@ -25,7 +25,7 @@ import { Link, useNavigate } from "react-router-dom"
 import ConfirmationDialog from "../dialogs/ConfirmationDialog"
 import AlertDialog from "../dialogs/AlertDialog"
 import { useDispatch } from "react-redux"
-import { addNotification } from "../../features/notifications/notificationsSlice"
+import { addNotification } from "../../features/notifications"
 import { formatDate } from "../../utils/dateUtils"
 
 const UserList = () => {
@@ -43,7 +43,7 @@ const UserList = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:3100/v1/users/list")
+        const response = await axios.get("https://usellers-backend-1.onrender.com/v1/users/list")
         const usersWithFormattedDates = response.data.map((user, index) => ({
           id: index + 1,
           ...user,
@@ -151,6 +151,9 @@ const UserList = () => {
       <Typography variant="h1" pb={5} color="#292828">
         Clientes
       </Typography>
+      {loading ? (
+        <Typography variant="body2">Carregamento demorado? desculpe, estou utilizando hospedagem gratuita, a primeira vez demora um pouquinho mas já já carrega</Typography>
+      ): null}
       <TextField
         fullWidth
         variant="outlined"
