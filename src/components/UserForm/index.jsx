@@ -10,6 +10,7 @@ import { createUser, updateUser } from '../../api';
 import CustomInput from './CustomInput'
 import AlertDialog from '../dialogs/AlertDialog'
 import { addNotification } from '../../features/notifications'
+import CustomSelect from './CustomSelect'
 
 const UserForm = () => {
   const { handleSubmit, control, reset, setValue } = useForm();
@@ -67,6 +68,18 @@ const UserForm = () => {
               name="firstName"
               control={control}
               label="Nome"
+              rules={{ required: 'Campo obrigatório' }}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <CustomSelect
+              name="clientLevel"
+              control={control}
+              options={[
+                { value: 'ADMIN', label: 'Administrador' },
+                { value: 'USER', label: 'Usuário' }
+              ]}
+              label="Nível de acesso"
               rules={{ required: 'Campo obrigatório' }}
             />
           </Grid>

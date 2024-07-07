@@ -43,7 +43,7 @@ const Sidebar = () => {
                     <ListItemIcon sx={{ color: 'white' }}>
                         <AccountCircleIcon />
                     </ListItemIcon>
-                    {open && <ListItemText primary="Profile" />}
+                    {open && <ListItemText primary="Client" />}
                 </ListItem>
             </List>
         </Drawer>

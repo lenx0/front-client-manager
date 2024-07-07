@@ -19,6 +19,11 @@ const CustomInput = ({ name, control, label, type = 'text', rules, defaultValue 
           variant="outlined"
           InputLabelProps={type === 'date' ? { shrink: true } : {}}
           fullWidth
+          sx={{
+            '& .MuiInputBase-input': {
+              padding: 2,
+            },
+          }}
         />
       )}
     />
