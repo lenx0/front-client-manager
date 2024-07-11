@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Box, Typography, Container, LinearProgress } from '@mui/material'
-import axios from 'axios'
 import Charts from '../../charts/PizzaChart'
+import { getUsers } from '../../../api'
 
 const Home = () => {
   const [totalUsers, setTotalUsers] = useState(0)
@@ -13,16 +13,16 @@ const Home = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('https://usellers-backend-1.onrender.com/v1/users/list', {
+        const response = await getUsers({
           onDownloadProgress: progressEvent => {
             const total = progressEvent.total
             const current = progressEvent.loaded
             const percentage = Math.floor((current / total) * 100)
             setProgress(percentage)
           }
-        })
-
-        const users = response.data
+        }) 
+          
+        const users = response
 
         const juneCount = users.filter(user => {
           const birthDate = new Date(user.birthDate)
